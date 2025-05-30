@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html>
   <head>
     <meta charset="utf-8">
     <title>Lecture 6 App</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="app.js"></script>
   </head>
-  <body>
-    <div ng-controller="myController">
-      
+  <body ng-app="nameCalc"> <!-- 'ng-app' can be placed anywhere as long as it is above 'ng-controller'-->
+    <div ng-controller="nameCalcContr">
+      <div>
+        <input type="text" ng-model="name" ng-keyup="displayNumeric()">
+      </div>
+      <br/>
+      <br/>
+      <div>
+        <p>Total numeric value is: {{totalValue}}</p>
+      </div>
     </div>
   </body>
 </html>
