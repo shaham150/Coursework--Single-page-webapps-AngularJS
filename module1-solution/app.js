@@ -18,7 +18,7 @@
 
       // Count items in the $scope.lunchItems array:
       for (let item of $scope.lunchItems){
-        if (item != "") { count++; } // Only update count if the item is not an empty string
+        if (item.trim() != "") { count++; } // Only update count if the item is not an empty string
       }
     
       $scope.lunchCount = count; // Update the global variable
