@@ -48,9 +48,12 @@
 
 
         var updateList = function () {
-            toBuy.toBuyItems = ShoppingListCheckOffService.getToBuyItems();
+            toBuy.itemsList = ShoppingListCheckOffService.getToBuyItems();
         }
 
+        toBuy.checkoffItem = function (item) {
+            ShoppingListCheckOffService.removeItem(item);
+        }
 
         /*
             ************************
@@ -64,6 +67,8 @@
     AlreadyBoughtController.$inject = ["ShoppingListCheckOffService"];
     function AlreadyBoughtController(ShoppingListCheckOffService) {
         var bought = this;
+
+        bought.itemsList = ShoppingListCheckOffService.getBoughtItems();
     }
 
     function ShoppingListCheckOffService() {
@@ -84,7 +89,20 @@
         service.getToBuyItems = function () {
             return toBuyItems;
         }
-        
+
+        ///////////////
+
+        service.removeItem = function (item) {
+            // Find the index of the item to be removed in the "toBuy" list:
+            var idx = toBuyItems.indexOf(item);
+
+            // Remove the item and insert it into the "boughtItems" list:
+            boughtItems.push(toBuyItems.splice(idx, 1)[0]); // Uses the zero index to ensure an object is inserted and not an array containing an object
+        }
+
+        service.getBoughtItems = function () {
+            return boughtItems;
+        }
     }
 
 })();
