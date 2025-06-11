@@ -53,14 +53,15 @@
 
         toBuy.checkoffItem = function (item) {
             ShoppingListCheckOffService.removeItem(item);
+            toBuy.toBuyListEmpty = ShoppingListCheckOffService.chekckToBuyList(); // Check if list is empty, update message accordingly
         }
-
+        
         /*
             ************************
         */
 
 
-        updateList(); // Update shopping list with items
+        updateList(); // Populate shopping list
 
     }
 
@@ -69,6 +70,9 @@
         var bought = this;
 
         bought.itemsList = ShoppingListCheckOffService.getBoughtItems();
+        
+        bought.boughtListIsEmpty = ShoppingListCheckOffService.boughtListIsEmpty;
+
     }
 
     function ShoppingListCheckOffService() {
@@ -76,6 +80,8 @@
 
         var toBuyItems = [];
         var boughtItems = [];
+
+        service.boughtListIsEmpty = true;
 
         service.addItem = function (item) {
             var newItem = {
@@ -103,6 +109,29 @@
         service.getBoughtItems = function () {
             return boughtItems;
         }
+
+        ////////////////
+
+        service.chekckToBuyList = function () {
+            // Return true if the list is empty, otherwise return false:
+            if (toBuyItems.length > 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        service.checkBoughtList = function () {
+            // Return true if the list is empty, otherwise return false:
+            if (boughtItems.length == 0) {
+                service.boughtListIsEmpty = true;
+                return true;
+            } else {
+                service.boughtListIsEmpty = false;
+                return false;
+            }
+        }
+
     }
 
 })();
