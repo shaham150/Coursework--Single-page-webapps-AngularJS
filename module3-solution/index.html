@@ -12,10 +12,11 @@
 
     <div ng-controller="NarrowItDownController as ctrl">
         <div class="form-group">
-        <input type="text" placeholder="search term" class="form-control">
+            <input type="text" placeholder="search term" class="form-control" ng-model="ctrl.searchTerm">
         </div>
+
         <div class="form-group narrow-button">
-        <button class="btn btn-primary">Narrow It Down For Me!</button>
+            <button class="btn btn-primary" ng-click="ctrl.setSearchTerm()">Narrow It Down For Me!</button>
         </div>
 
         <found-items found-items="...." on-remove="...."></found-items>
@@ -23,5 +24,7 @@
   
   </div>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
