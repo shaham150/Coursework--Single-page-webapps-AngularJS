@@ -10,14 +10,17 @@
     NarrowItDownController.$inject = ["MenuSearchService"];
     function NarrowItDownController(MenuSearchService){
         var ctrl = this;
-        
-        ctrl.setSearchTerm = function () {
-            // Retrieve the list of matching menu items based on the user's search term:
-            // MenuSearchService.getMatchedMenuItems(ctrl.searchTerm).then(function (result) {
-            //         console.log("RETURN VAL:",result.data);
-            //     }
-            // );
 
+        ctrl.setSearchTerm = function () {
+            // Display a message if the user does not enter a search term, and do not send any server request:
+            console.log(ctrl.searchTerm);
+            if (ctrl.searchTerm == "" || ctrl.searchTerm == undefined) {
+                ctrl.noItems = true;
+                ctrl.found = [];
+                return;
+            }
+
+            // Retrieve the list of matching menu items based on the user's search term:
             MenuSearchService.getMatchedMenuItems(ctrl.searchTerm)
                 .then(function (response){
                     console.log("GOT A RESPONSE", response);
@@ -31,6 +34,14 @@
                         ctrl.found = response;
                     }
                 });
+        }
+
+        ctrl.removeItem = function (index) {
+            var temp = ctrl.found;
+
+            temp.splice(index, 1); // Remove one item at the specified index
+
+            ctrl.found = temp; // Set variable to spliced array
         }
 
         return;
@@ -61,14 +72,11 @@
                         var menuItemDescription = menuItem[1].description; // Grab the item description from the object
 
                         // If the menu-item description contains the search term, add it to the list:
-                        if (menuItemDescription.indexOf(searchTerm) != -1) {
-                            console.log("ITEM", menuItem[1]);
+                        if (menuItemDescription.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1) {
                             foundItems.push(menuItem[1]);
                         }
                     }
                 }
-
-                console.log("FOUND ITEMS:",foundItems);
                 
                 return foundItems; // Return to outer Promise
             }); // End Promise
@@ -81,21 +89,22 @@
         var ddo = {
             name: "foundItems",
             scope: {
-                foundItemsList: "<found"
+                foundItemsList: "<found",
+                onRemove: "&"
             },
             template: ` <br/><br/><br/>
                         <ul>
-                            <li ng-repeat="item in foundItemsList">
-                                <strong>{{item.name}}</strong>
+                            <li ng-repeat="item in ctrl.foundItemsList">
+                                <strong>{{item.name}} </strong> <button type=button ng-click="ctrl.onRemove({index : $index})">Don't want this one!</button>
                                 <ul>
                                     <li><strong>Short name:</strong> {{item.short_name}}</li>
                                     <li><strong>Description:</strong> {{item.description}}</li>
                                 </ul>
                             </li>
-                        </ul>`
+                        </ul>`,
             // templateUrl: "./loader/itemsLoaderTemplate.html",
-            // controller: "NarrowItDownController as ctrl",
-            // bindToController: true
+            controller: "NarrowItDownController as ctrl",
+            bindToController: true
         };
 
         return ddo;
