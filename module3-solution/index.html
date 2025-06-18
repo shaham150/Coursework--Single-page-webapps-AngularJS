@@ -19,7 +19,9 @@
             <button class="btn btn-primary" ng-click="ctrl.setSearchTerm()">Narrow It Down For Me!</button>
         </div>
 
-        <found-items found="ctrl.matchedItems" on-remove=""></found-items>
+        <found-items found="ctrl.found"></found-items>
+
+        <h4 ng-if="ctrl.noItems">Nothing found.</h4>
     </div>
   
   </div>

@@ -10,7 +10,7 @@
     NarrowItDownController.$inject = ["MenuSearchService"];
     function NarrowItDownController(MenuSearchService){
         var ctrl = this;
-
+        
         ctrl.setSearchTerm = function () {
             // Retrieve the list of matching menu items based on the user's search term:
             // MenuSearchService.getMatchedMenuItems(ctrl.searchTerm).then(function (result) {
@@ -21,6 +21,15 @@
             MenuSearchService.getMatchedMenuItems(ctrl.searchTerm)
                 .then(function (response){
                     console.log("GOT A RESPONSE", response);
+
+                    // Set a message if no items were found:
+                    if (response.length == 0) {
+                        ctrl.noItems = true;
+                        ctrl.found = [];
+                    } else {
+                        ctrl.noItems = false;
+                        ctrl.found = response;
+                    }
                 });
         }
 
@@ -53,7 +62,8 @@
 
                         // If the menu-item description contains the search term, add it to the list:
                         if (menuItemDescription.indexOf(searchTerm) != -1) {
-                            foundItems.push(menuItem);
+                            console.log("ITEM", menuItem[1]);
+                            foundItems.push(menuItem[1]);
                         }
                     }
                 }
@@ -70,11 +80,22 @@
     function foundItems () {
         var ddo = {
             name: "foundItems",
-            restrict: "E",
-            templateUrl: "loader/itemsloaderindicator.template.html",
             scope: {
-                foundArray: "<found"
-            }
+                foundItemsList: "<found"
+            },
+            template: ` <br/><br/><br/>
+                        <ul>
+                            <li ng-repeat="item in foundItemsList">
+                                <strong>{{item.name}}</strong>
+                                <ul>
+                                    <li><strong>Short name:</strong> {{item.short_name}}</li>
+                                    <li><strong>Description:</strong> {{item.description}}</li>
+                                </ul>
+                            </li>
+                        </ul>`
+            // templateUrl: "./loader/itemsLoaderTemplate.html",
+            // controller: "NarrowItDownController as ctrl",
+            // bindToController: true
         };
 
         return ddo;
