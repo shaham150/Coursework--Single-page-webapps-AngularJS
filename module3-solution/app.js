@@ -13,9 +13,15 @@
 
         ctrl.setSearchTerm = function () {
             // Retrieve the list of matching menu items based on the user's search term:
-            ctrl.found = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
+            // MenuSearchService.getMatchedMenuItems(ctrl.searchTerm).then(function (result) {
+            //         console.log("RETURN VAL:",result.data);
+            //     }
+            // );
 
-            // console.log("CLICKED:", );
+            MenuSearchService.getMatchedMenuItems(ctrl.searchTerm)
+                .then(function (response){
+                    console.log("GOT A RESPONSE", response);
+                });
         }
 
         return;
@@ -53,12 +59,24 @@
                 }
 
                 console.log("FOUND ITEMS:",foundItems);
-            }).catch(function (error) {
-                console.log("Error in HTTP request:", error);
-            });
-        }
+                
+                return foundItems; // Return to outer Promise
+            }); // End Promise
+
+        } // End 'getMatchedMenuItems' method
 
     } // End of controller
 
-    
+    function foundItems () {
+        var ddo = {
+            name: "foundItems",
+            restrict: "E",
+            templateUrl: "loader/itemsloaderindicator.template.html",
+            scope: {
+                foundArray: "<found"
+            }
+        };
+
+        return ddo;
+    }
 })();
