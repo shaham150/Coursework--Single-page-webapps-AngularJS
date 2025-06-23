@@ -3,8 +3,26 @@
 <head>
     <meta charset="UTF-8" />
     <title>Module 4 Assignment</title>
+
+    <!-- Import Angular and ui.router: -->
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+     <script src="angular-ui-router.min.js"></script>
+
+    <!-- Import modules: -->
+    <script src="src/data.module.js"></script>
+    <script src="src/menuapp.module.js"></script>
+
+    <!-- Import components: -->
+    <script src="src/categories.component.js"></script>
+    <script src="src/items.component.js"></script>
+
+    <!-- Import services: -->
+    <script src="src/menudata.service.js"></script>
+
 </head>
 <body ng-app="MenuApp">
-    
+
+    <categories categoriesList=""></categories>
+
 </body>
 </html>
