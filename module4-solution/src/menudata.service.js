@@ -9,7 +9,7 @@
     function MenuDataService ($http) {
         var service = this;
 
-        var getAllCategories = function () {
+        service.getAllCategories = function () {
             var getUrl = apiBaseUrl + "categories.json"
 
             var httpObj = {
@@ -19,7 +19,7 @@
             return $http(httpObj);
         }
 
-        var getItemsForCategory = function(categoryShortName) {
+        service.getItemsForCategory = function(categoryShortName) {
             var getUrl = apiBaseUrl + "menu_items/" + categoryShortName + ".json";
 
             var httpObj = {

@@ -5,8 +5,9 @@
     <title>Module 4 Assignment</title>
 
     <!-- Import Angular and ui.router: -->
-     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
-     <script src="angular-ui-router.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <!-- <script src="angular-ui-router.min.js"></script> -->
+    <script src="angular-ui-router.js"></script>
 
     <!-- Import modules: -->
     <script src="src/data.module.js"></script>
@@ -19,10 +20,14 @@
     <!-- Import services: -->
     <script src="src/menudata.service.js"></script>
 
+    <!-- Import routes: -->
+     <script src="routes.js"></script>
+
 </head>
 <body ng-app="MenuApp">
 
-    <categories categoriesList=""></categories>
+    <ui-view></ui-view>
+    <!-- <categories categoriesList=""></categories> -->
 
 </body>
 </html>
