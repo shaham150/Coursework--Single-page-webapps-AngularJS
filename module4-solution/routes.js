@@ -14,7 +14,38 @@
         $stateProvider
             .state("home", {
                 url: "/",
-                template: "<h1>Welcome!</h1>"
-            });
+                templateUrl: "src/home.template.html"
+            })
+            .state(
+                "categories", {
+                    url: "/categories",
+                    resolve: {
+                        catList: ["MenuDataService", function (MenuDataService) {
+                            return MenuDataService.getAllCategories().then(function (response) {
+                                console.log("inside", response);
+                                return response;
+                            });
+                        }]
+
+                    },
+                    templateUrl: "src/main-categories.template.html",
+                    controller: "MenuAppController as cntrl"
+                }
+            )
+            .state(
+                "items", {
+                    url: "/items",
+                    constoller: "MenuAppController as cntrl",
+                    resolve: {
+                        list: ["MenuDataService", function () {
+                            return MenuDataService.getItemsForCategory().then(function (response) {
+                                return response;
+                            });
+                        }]
+                    },
+                    templateUrl: "src/main-categories.template.html",
+                    controller: "MenuAppController as cntrl"
+                }
+            );
     }
 })();

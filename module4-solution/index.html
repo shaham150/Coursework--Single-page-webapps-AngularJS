@@ -16,18 +16,37 @@
     <!-- Import components: -->
     <script src="src/categories.component.js"></script>
     <script src="src/items.component.js"></script>
-
+    
     <!-- Import services: -->
     <script src="src/menudata.service.js"></script>
 
     <!-- Import routes: -->
-     <script src="routes.js"></script>
+    <script src="routes.js"></script>
 
+    <style>
+        body > * {
+            text-align: center;
+            margin: auto;
+        }
+
+        button {
+            display: block;
+            margin: auto;
+            padding: 2vh 3vw;
+            font-size: 105%;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body ng-app="MenuApp">
 
-    <ui-view></ui-view>
-    <!-- <categories categoriesList=""></categories> -->
+    <div ng-controller="MenuAppController as menuApp">
+
+
+        <ui-view></ui-view>
+        <!-- <categories categoriesList=""></categories> -->
+        
+    </div>
 
 </body>
 </html>
