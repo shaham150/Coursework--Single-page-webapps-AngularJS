@@ -33,7 +33,6 @@
             console.log("FAVE ITEM CODE IS: ", itemCode);
 
             var parsedItemCode = parseMenuCode(itemCode);
-            console.log("PARSED", parsedItemCode);
 
             return $http.get("https://coursera-jhu-default-rtdb.firebaseio.com/menu_items.json").then(function (response) {
                 console.log(response.data);
@@ -70,7 +69,19 @@
                 console.log("no match");
                 service.faveMenuItem = 0;                
             });
-        }
-    }
+        };
+
+        service.storeUserInfo = function (firstName, lastName, userEmail, userPhone) {
+            // Set the user's info to a variable for later access:
+            service.userInfo = {
+                fname: firstName,
+                lname: lastName,
+                email: userEmail,
+                phone: userPhone
+            };
+
+            console.log("user info set: ", service.userInfo);
+        };
+    } // End service
 
 })();

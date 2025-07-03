@@ -51,6 +51,10 @@ function routeConfig ($stateProvider) {
       //     return SignupService.getFaveItem();
       //   }]
       // }
+    })
+    .state("public.myinfo", {
+      url: "/myinfo",
+      templateUrl: "src/public/myinfo/my-info.html"
     });
 }
 })();

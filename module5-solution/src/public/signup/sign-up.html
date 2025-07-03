@@ -24,7 +24,7 @@
         <span ng-if="signupForm.menuItem.$error.required && signupForm.menuItem.$touched">Please enter a menu number.</span>
         <span ng-if="signupCtrl.SignupService.faveMenuItem == 0">No such menu number exists.</span><br/><br/>
 
-        <button ng-disabled="signupForm.$invalid" ng-click="signupCtrl.SignupService.getFaveItem(form.menuItem)">Submit</button>
+        <button ng-disabled="signupForm.$invalid" ng-click="signupCtrl.SignupService.getFaveItem(form.menuItem) && signupCtrl.SignupService.storeUserInfo(form.fname, form.lname, form.email, form.phone)">Submit</button>
 
     </form>
 
