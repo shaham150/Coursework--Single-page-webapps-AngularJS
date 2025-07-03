@@ -5,7 +5,7 @@
         .controller("signupController", signupController);
     
     signupController.$inject = ["SignupService"];
-    function signupController(){
+    function signupController(SignupService){
         var $ctrl = this;
 
         $ctrl.SignupService = SignupService;
