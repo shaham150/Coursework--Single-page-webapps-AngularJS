@@ -23,7 +23,7 @@
         <input type="text" placeholder="Menu Item #" name="menuItem" id="menuItem" ng-model="form.menuItem" required />
         <span ng-if="signupForm.menuItem.$error.required && signupForm.menuItem.$touched">Please enter a menu number.</span><br/><br/>
 
-        <button type="submit" ng-disabled="signupForm.$invalid" >Submit</button>
+        <button ng-disabled="signupForm.$invalid" ng-click="signupCtrl.SignupService.getFaveItem(form.menuItem)">Submit</button>
 
     </form>
 

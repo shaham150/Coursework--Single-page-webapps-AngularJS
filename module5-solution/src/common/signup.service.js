@@ -9,19 +9,25 @@
         var service = this;
 
         service.getFaveItem = function (itemCode) {
-            console.log("inside");
-            return "hi";
-            // console.log("FAVE ITEM CODE: ", itemCode);
-            // return $http.get("https://coursera-jhu-default-rtdb.firebaseio.com/menu_items.json").then(function (response) {
-            //     console.log(response.data);
-            //     return response.data;
-            // });
+            console.log("FAVE ITEM CODE IS: ", itemCode);
+            return $http.get("https://coursera-jhu-default-rtdb.firebaseio.com/menu_items.json").then(function (response) {
+                console.log(response.data);
+
+                for (let ctgry in response.data) {
+                    var currentCat = response.data[ctgry].category.short_name;
+                    console.log(currentCat);
+
+                    if (currentCat.toLowerCase() == itemCode) {
+                        console.log("MATCH FOUND");
+                        service.faveMenuItem = faveItem; // Store fave item for later use
+                        return faveItem;
+                    }
+                }
+
+                console.log("no match");
+                service.faveMenuItem = null;                
+            });
         }
-
-        service.storeFaveItem = function (itemName) {
-            service.faveMenuItem = itemName;
-        }
-
-
     }
+
 })();
