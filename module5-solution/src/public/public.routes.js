@@ -44,6 +44,13 @@ function routeConfig ($stateProvider) {
     .state("public.signup", {
       url: "/signup",
       templateUrl: "src/public/signup/sign-up.html",
+      controller: "signupController",
+      controllerAs: "signupCtrl",
+      resolve: {
+        faveItem: ['SignupService', function (SignupService) {
+          return SignupService.getFaveItem();
+        }]
+      }
     });
 }
 })();
