@@ -1,0 +1,9 @@
+<div class="container" ng-if="$scope.info == undefined">
+    <h2>Not Signed Up Yet. <a ui-sref="public.signup">Sign up Now!</a></h2>
+</div>
+
+<div class="container" ng-if="!($scope.info == undefined)">
+    <h2>Welcome, {{$ctrl.info.fname}}!</h2>
+</div>
+
+<button ng-click="console.log('test', $ctrl.info)">Test button</button>

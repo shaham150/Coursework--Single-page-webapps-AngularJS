@@ -52,9 +52,37 @@ function routeConfig ($stateProvider) {
       //   }]
       // }
     })
+    // .state("public.myinfo", {
+    //   url: "/myinfo",
+    //   templateUrl: "src/public/myinfo/my-info.html",
+    //   controller: "myinfoController",
+    //   controllerAs: "myinfoCtrl",
+    //   resolve: {
+    //     info: ['SignupService', function (SignupService) {
+    //       console.log("in resolve:",SignupService.retrieveUserInfo());
+    //       return SignupService.retrieveUserInfo();
+    //     }]
+    //   }
+    // })
     .state("public.myinfo", {
       url: "/myinfo",
-      templateUrl: "src/public/myinfo/my-info.html"
+      controller: "myinfoController",
+      controllerAs: "myinfoCtrl",
+      template: `
+      <div class="container" ng-if="myinfoCtrl.SignupService.userInfo == undefined">
+        <h2>Not Signed Up Yet. <a ui-sref="public.signup">Sign up Now!</a></h2>
+      </div>
+      
+      <div class="container" ng-if="!(myinfoCtrl.SignupService.userInfo == undefined)">
+        <h2>Welcome, {{myinfoCtrl.SignupService.userInfo.fname}}!</h2>
+        <h3>Your info:</h3>
+        <strong>Full Name:</strong> {{myinfoCtrl.SignupService.userInfo.fname}} {{myinfoCtrl.SignupService.userInfo.lname}}<br/>
+        <strong>Email:</strong> {{myinfoCtrl.SignupService.userInfo.email}}<br/>
+        <strong>Phone:</strong> {{myinfoCtrl.SignupService.userInfo.phone}}<br/>
+        <strong>Favorite Menu Item:</strong><br/>
+        <img src="images/menu/{{myinfoCtrl.SignupService.parseMenuCode(myinfoCtrl.SignupService.faveMenuItem.short_name).menu}}/{{myinfoCtrl.SignupService.faveMenuItem.short_name}}.jpg" />
+        <span width="50%">{{myinfoCtrl.SignupService.faveMenuItem.name}} - {{myinfoCtrl.SignupService.faveMenuItem.description}}</span>
+      </div>`
     });
 }
 })();

@@ -8,7 +8,7 @@
     function SignupService ($http, ApiPath) {
         var service = this;
 
-        function parseMenuCode (menuCode) {
+        service.parseMenuCode = function (menuCode) {
             var parsedCode = {
                 menu: "",
                 item: ""
@@ -32,7 +32,7 @@
         service.getFaveItem = function (itemCode) {
             console.log("FAVE ITEM CODE IS: ", itemCode);
 
-            var parsedItemCode = parseMenuCode(itemCode);
+            var parsedItemCode = service.parseMenuCode(itemCode);
 
             return $http.get("https://coursera-jhu-default-rtdb.firebaseio.com/menu_items.json").then(function (response) {
                 console.log(response.data);
@@ -51,7 +51,7 @@
 
                         for (let currentItem of currentCat.menu_items){
                             // Check for a match between the current item number and the item number that the user specified:
-                            if (parseMenuCode(currentItem.short_name).item == parsedItemCode.item){
+                            if (service.parseMenuCode(currentItem.short_name).item == parsedItemCode.item){
                                 service.faveMenuItem = currentItem; // Store fave item for later use
                                 console.log("match found:", currentItem);
                                 return;
@@ -81,6 +81,11 @@
             };
 
             console.log("user info set: ", service.userInfo);
+        };
+
+        service.retrieveUserInfo = function() {
+            console.log("FOUND:", service.userInfo);
+            return service.userInfo;
         };
     } // End service
 
